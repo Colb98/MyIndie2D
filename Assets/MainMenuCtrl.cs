@@ -34,6 +34,7 @@ public class MainMenuCtrl : MonoBehaviour
         if (asyncLoad.isDone)
         {
             this.reference = SceneManager.GetSceneByBuildIndex(index);
+            HideAll();
         }
     }
 
@@ -57,7 +58,8 @@ public class MainMenuCtrl : MonoBehaviour
             }
 
             // Unload this scene
-            SceneManager.UnloadSceneAsync(0);
+            //SceneManager.UnloadSceneAsync(0);
+            HideAll();
         }
     }
 
@@ -75,6 +77,12 @@ public class MainMenuCtrl : MonoBehaviour
     public void ShowOption()
     {
         optionMenu.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    private void HideAll()
+    {
+        optionMenu.SetActive(false);
         mainMenu.SetActive(false);
     }
 }

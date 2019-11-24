@@ -77,6 +77,7 @@ public class GUIManager : MonoBehaviour
     public void SaveAndQuit()
     {
         gm.SaveGame();
-        //ExitGame();
+
+        ExitGame();
     }
 }

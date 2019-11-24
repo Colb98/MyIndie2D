@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -91,14 +92,19 @@ public class GameManager : MonoBehaviour
             SaveData save = (SaveData)bf.Deserialize(file);
             file.Close();
 
+
+            if (this.level != save.level)
+            {
+                StartCoroutine(LoadLevelInXSecs(save.level, 0, true));
+                return;
+            }
             player.transform.position = new Vector3(save.x, save.y, save.z);
             this.lightningPosY = save.lightningPosY;
             this.gotLightning = save.gotLightning;
             this.gotBoost = save.gotBoost;
             this.boostPosY = save.boostPosY;
-            this.level = save.level;
 
-            Debug.Log("LOAD SUCCESS");
+            Debug.Log("LOAD SUCCESS level " + save.level);
         }
         else
         {
@@ -136,5 +142,67 @@ public class GameManager : MonoBehaviour
     {
         boostPosY = lightningPosY = 0;
         gotBoost = gotLightning = false;
+    }
+
+    public void FinishLevel()
+    {
+        Debug.Log("Finished!");
+        if (level < 2)
+        {
+            NextLevel();
+        }
+        else
+        {
+            Debug.Log("No more level!");
+            guiMgr.ShowNotify("CONGRATULATION", "You have finished the game!", "OKAY");
+        }
+    }
+
+    void NextLevel()
+    {
+        StartCoroutine(LoadLevelInXSecs(this.level + 1, 5));
+    }
+
+    IEnumerator LoadLevelInXSecs(int level, int time, bool isLoad = false)
+    {
+        yield return new WaitForSeconds(time);
+        AsyncOperation a = SceneManager.LoadSceneAsync(level, LoadSceneMode.Additive);
+        while (!a.isDone)
+        {
+            yield return null;
+        }
+        if (a.isDone)
+        {
+            if (isLoad)
+            {
+                Scene scene = SceneManager.GetSceneByBuildIndex(level);
+                GameObject[] objects = scene.GetRootGameObjects();
+                foreach (GameObject o in objects)
+                {
+                    if (o.name == "GameManager")
+                    {
+                        o.GetComponent<GameManager>().LoadGame();
+                    }
+                }
+            }                
+
+            // Unload this scene
+            SceneManager.UnloadSceneAsync(this.level);
+        } 
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.UnloadSceneAsync(this.level);
+
+        Scene scene = SceneManager.GetSceneByBuildIndex(0);
+        GameObject[] objects = scene.GetRootGameObjects();
+        foreach (GameObject o in objects)
+        {
+            if (o.name == "MainMenuCtrl")
+            {
+                o.GetComponent<MainMenuCtrl>().BackToMainMenu();
+            }
+        }
     }
 }

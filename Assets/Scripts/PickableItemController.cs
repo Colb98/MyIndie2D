@@ -26,6 +26,7 @@ public class PickableItemController : MonoBehaviour
             case "chest":
                 if (sprite != null)
                     GetComponent<SpriteRenderer>().sprite = sprite;
+                gm.FinishLevel();
                 break;
             case "lightning":
                 if (eb)

@@ -38,11 +38,11 @@ public class NotifyPopup : MonoBehaviour
 
     public void Show()
     {
-        enabled = true;
+        gameObject.SetActive(true);
     }
 
     public void Hide()
     {
-        enabled = false;
+        gameObject.SetActive(false);
     }
 }
