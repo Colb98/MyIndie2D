@@ -19,7 +19,7 @@ public class PlayerCtrl : MonoBehaviour
     public bool cheat = false;
 
     public float cheatJumpForce = -1;
-    private Vector3 lastGroundPos;
+    public Vector3 lastGroundPos;
     private float lastTouchGround;
     // Start is called before the first frame update
     void Start()
@@ -148,7 +148,7 @@ public class PlayerCtrl : MonoBehaviour
             // Stuck more than 6s in the air
             if(Time.time - lastTouchGround > 6)
             {
-                Debug.Log("Back to pos: " + Utils.VectorToString(lastGroundPos));
+                //Debug.Log("Back to pos: " + Utils.VectorToString(lastGroundPos));
                 lastGroundPos.y += 2;
                 transform.position = lastGroundPos;
                 rb.velocity.Set(0, 0);
@@ -171,7 +171,7 @@ public class PlayerCtrl : MonoBehaviour
         jumpCharge = 0f;
 
 
-        Debug.Log("leave ground at " + Utils.VectorToString(transform.position));
+        //Debug.Log("leave ground at " + Utils.VectorToString(transform.position));
         lastGroundPos = transform.position;
         lastTouchGround = Time.time;
     }
@@ -181,7 +181,7 @@ public class PlayerCtrl : MonoBehaviour
         Vector3 contactPoint = collision.contacts[0].point;
         Vector3 center = transform.position;
 
-        Debug.Log("Contact Point: " + Utils.VectorToString(contactPoint) + " " + Utils.VectorToString(center));
+        //Debug.Log("Contact Point: " + Utils.VectorToString(contactPoint) + " " + Utils.VectorToString(center));
         // If contact point is below
         if (contactPoint.y < center.y - 0.45f)
         {
