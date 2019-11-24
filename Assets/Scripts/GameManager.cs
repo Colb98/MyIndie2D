@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
         if (gotLightning)
         {
-            if(player.transform.position.y >= lightningPosY - 1)
+            if(player.transform.position.y >= lightningPosY - 3)
             {
                 eb.SetBarVisible(true);
             }
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         }
         if (gotBoost)
         {
-            if (player.transform.position.y >= boostPosY - 1)
+            if (player.transform.position.y >= boostPosY - 3)
             {
                 pc.SetSpeed(0.075f);
             }
@@ -67,7 +67,6 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        Debug.Log("paused");
         paused = !paused;
         if (paused)
         {
@@ -223,18 +222,25 @@ public class GameManager : MonoBehaviour
 
     public void PlaySFX()
     {
-        this.sfx.Play();
+        if (sfx)
+            this.sfx.Play();
     }
 
     public void UpdateMusicSFX()
     {
-        music.mute = !musicToggle.isOn;
-        sfx.mute = !sfxToggle.isOn;
+        if (music)
+        {
+            music.mute = !musicToggle.isOn;
+            sfx.mute = !sfxToggle.isOn;
+        }
     }
 
     public void UpdateMusicSFXToggle()
     {
-        musicToggle.isOn = !music.mute;
-        sfxToggle.isOn = !sfx.mute;
+        if (music)
+        {
+            musicToggle.isOn = !music.mute;
+            sfxToggle.isOn = !sfx.mute;
+        }
     }
 }

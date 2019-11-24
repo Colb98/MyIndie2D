@@ -9,6 +9,7 @@ public class MainMenuCtrl : MonoBehaviour
     public Scene reference;
     public GameObject mainMenu;
     public GameObject optionMenu;
+    public GameObject bg;
     public AudioSource music;
     public AudioSource sfx;
     public Toggle musicToggle;
@@ -106,6 +107,7 @@ public class MainMenuCtrl : MonoBehaviour
     {
         optionMenu.SetActive(false);
         mainMenu.SetActive(false);
+        bg.SetActive(false);
     }
 
     public void SetMusicEnabled()
