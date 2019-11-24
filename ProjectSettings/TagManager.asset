@@ -6,6 +6,9 @@ TagManager:
   tags:
   - bounce
   - ground
+  - chest
+  - lightning
+  - boost
   layers:
   - Default
   - TransparentFX
@@ -51,4 +54,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3588793057
+    locked: 0
+  - name: GUI
+    uniqueID: 1597690079
     locked: 0

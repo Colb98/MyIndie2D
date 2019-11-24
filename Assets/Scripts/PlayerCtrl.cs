@@ -11,6 +11,7 @@ public class PlayerCtrl : MonoBehaviour
     public GameObject player;
    
     private bool isHoldJump = false;
+    private float speed = 0.05f;
     public float jumpCharge = 0f;
     private int jumpForceX = 0;
     public float dForceX = 200;
@@ -30,6 +31,12 @@ public class PlayerCtrl : MonoBehaviour
         tr = transform;
 
         rb.isKinematic = cheat;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        if (this.speed != speed)
+            this.speed = speed;
     }
 
     // Update is called once per frame
@@ -76,6 +83,9 @@ public class PlayerCtrl : MonoBehaviour
 
             transform.position = pos;
 
+            lastGroundPos = transform.position;
+            lastTouchGround = Time.time;
+
             return;
         }
 
@@ -87,12 +97,12 @@ public class PlayerCtrl : MonoBehaviour
                 Vector3 scale = tr.localScale;
                 if (Input.GetKey(KeyCode.LeftArrow))
                 {
-                    pos.x += -0.05f;
+                    pos.x += -speed;
                     scale.x = -Mathf.Abs(scale.x);
                 }
                 else
                 {
-                    pos.x += 0.05f;
+                    pos.x += speed;
                     scale.x = Mathf.Abs(scale.x);
                 }
 

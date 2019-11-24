@@ -8,6 +8,10 @@ public class SaveData
     public float x, y, z;
     // Items here
     public int level = 1;
+    public float lightningPosY;
+    public bool gotLightning = false;
+    public float boostPosY;
+    public bool gotBoost = false;
 
     public void SetPosition(Vector3 v)
     {

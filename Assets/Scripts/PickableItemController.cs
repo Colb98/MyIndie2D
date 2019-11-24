@@ -5,6 +5,8 @@ using UnityEngine;
 public class PickableItemController : MonoBehaviour
 {
     public Sprite sprite;
+    public EnergyBar eb;
+    public GameManager gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,22 @@ public class PickableItemController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(sprite != null)
-            GetComponent<SpriteRenderer>().sprite = sprite;
+        switch (tag)
+        {
+            case "chest":
+                if (sprite != null)
+                    GetComponent<SpriteRenderer>().sprite = sprite;
+                break;
+            case "lightning":
+                if (eb)
+                {
+                    eb.SetBarVisible(true);
+                    gm.SetLightningPosY();
+                }
+                break;
+            case "boost":
+                gm.SetBoostPosY();
+                break;
+        }
     }
 }
