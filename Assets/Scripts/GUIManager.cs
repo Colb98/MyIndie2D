@@ -8,14 +8,13 @@ public class GUIManager : MonoBehaviour
     public GameObject quitConfirmPopup;
     public GameObject pausePopup;
     public NotifyPopup notifyPopup;
-    private GameManager gm;
+    public GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
         SetExitConfirmVisible(false);
         SetPauseVisible(false);
-        gm = GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -52,6 +51,8 @@ public class GUIManager : MonoBehaviour
         {
             pausePopup.SetActive(visible);
         }
+        Debug.Log("Called: " + (gm == null));
+        gm.UpdateMusicSFXToggle();
     }
 
     public void ExitGame()

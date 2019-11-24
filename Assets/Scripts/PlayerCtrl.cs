@@ -9,6 +9,7 @@ public class PlayerCtrl : MonoBehaviour
     private Animator a;
     private Transform tr;
     public GameObject player;
+    public GameManager gm;
    
     private bool isHoldJump = false;
     private float speed = 0.05f;
@@ -191,6 +192,8 @@ public class PlayerCtrl : MonoBehaviour
         Vector3 contactPoint = collision.contacts[0].point;
         Vector3 center = transform.position;
 
+        gm.PlaySFX();
+
         //Debug.Log("Contact Point: " + Utils.VectorToString(contactPoint) + " " + Utils.VectorToString(center));
         // If contact point is below
         if (contactPoint.y < center.y - 0.45f)
@@ -202,5 +205,6 @@ public class PlayerCtrl : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         a.SetBool("OnAir", true);
+        gm.PlaySFX();
     }
 }

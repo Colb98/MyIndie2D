@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuCtrl : MonoBehaviour
 {
     public Scene reference;
     public GameObject mainMenu;
     public GameObject optionMenu;
+    public AudioSource music;
+    public AudioSource sfx;
+    public Toggle musicToggle;
+    public Toggle sfxToggle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +41,17 @@ public class MainMenuCtrl : MonoBehaviour
         {
             this.reference = SceneManager.GetSceneByBuildIndex(index);
             HideAll();
+
+            Scene scene = SceneManager.GetSceneByBuildIndex(1);
+            GameObject[] objects = scene.GetRootGameObjects();
+            foreach (GameObject o in objects)
+            {
+                if (o.name == "GameManager")
+                {
+                    GameManager g = o.GetComponent<GameManager>();
+                    g.SetAudioSource(this.music, this.sfx);
+                }
+            }
         }
     }
 
@@ -53,7 +70,9 @@ public class MainMenuCtrl : MonoBehaviour
             {
                 if(o.name == "GameManager")
                 {
-                    o.GetComponent<GameManager>().LoadGame();
+                    GameManager g = o.GetComponent<GameManager>();
+                    g.LoadGame();
+                    g.SetAudioSource(this.music, this.sfx);
                 }
             }
 
@@ -78,11 +97,30 @@ public class MainMenuCtrl : MonoBehaviour
     {
         optionMenu.SetActive(true);
         mainMenu.SetActive(false);
+
+        musicToggle.isOn = !music.mute;
+        sfxToggle.isOn = !sfx.mute;
     }
 
     private void HideAll()
     {
         optionMenu.SetActive(false);
         mainMenu.SetActive(false);
+    }
+
+    public void SetMusicEnabled()
+    {
+        if (music)
+        {
+            music.mute = !musicToggle.isOn;
+        }
+    }
+
+    public void SetSFXEnabled()
+    {
+        if (music)
+        {
+            sfx.mute = !sfxToggle.isOn;
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class GameManager : MonoBehaviour
     private PlayerCtrl pc;
     private GUIManager guiMgr;
     private EnergyBar eb;
+    private AudioSource music;
+    private AudioSource sfx;
+    public Toggle musicToggle;
+    public Toggle sfxToggle;
+
     public float chargeForce;
     public float maxForce;
     public bool paused;
@@ -61,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        Debug.Log("paused");
         paused = !paused;
         if (paused)
         {
@@ -181,7 +188,9 @@ public class GameManager : MonoBehaviour
                 {
                     if (o.name == "GameManager")
                     {
-                        o.GetComponent<GameManager>().LoadGame();
+                        GameManager g = o.GetComponent<GameManager>();
+                        g.LoadGame();
+                        g.SetAudioSource(this.music, this.sfx);
                     }
                 }
             }                
@@ -204,5 +213,28 @@ public class GameManager : MonoBehaviour
                 o.GetComponent<MainMenuCtrl>().BackToMainMenu();
             }
         }
+    }
+
+    public void SetAudioSource(AudioSource music, AudioSource sfx)
+    {
+        this.music = music;
+        this.sfx = sfx;
+    }
+
+    public void PlaySFX()
+    {
+        this.sfx.Play();
+    }
+
+    public void UpdateMusicSFX()
+    {
+        music.mute = !musicToggle.isOn;
+        sfx.mute = !sfxToggle.isOn;
+    }
+
+    public void UpdateMusicSFXToggle()
+    {
+        musicToggle.isOn = !music.mute;
+        sfxToggle.isOn = !sfx.mute;
     }
 }
