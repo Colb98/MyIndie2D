@@ -2,6 +2,9 @@
 
 Jump Girl là một game platform cực kỳ đơn giản và dễ chơi :D
 
+## Tác giả
+Nguyễn Bữu Lộc - 1612343
+
 ## Cách chơi
 
 Click Start new để bắt đầu chơi game mới từ đầu.
