@@ -12,7 +12,8 @@ Option để tắt và mở nhạc nền cũng như hiệu ứng âm thanh SFX.
 Sử dụng mũi trên trái và phải để di chuyển nhân vật.
 Đè nút Space để chuẩn bị nhảy, đè càng lâu thì nhân vật sẽ nhảy càng cao.
 Thả nút Space để nhảy. Trước khi nhảy, có thể giữ thêm nút trái phải để định hướng nhảy (nếu không nhân vật sẽ nhảy lên cao và rơi xuống tại chỗ).
-Không thể điều khiển lúc nhân vật đang ở trên không
+Không thể điều khiển lúc nhân vật đang ở trên không.
+Nhặt vật phẩm bằng cách chạm vào nó. Hiệu ứng vật phẩm sẽ mất tác dụng khi người chơi rơi xuống thấp hơi độ cao nhặt được.
 
 ### Dừng game
 Ấn Esc hoặc P hoặc nút Pause ở góc trên phải để dừng game.
