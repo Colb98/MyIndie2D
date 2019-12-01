@@ -9,6 +9,7 @@ TagManager:
   - chest
   - lightning
   - boost
+  - spike
   layers:
   - Default
   - TransparentFX

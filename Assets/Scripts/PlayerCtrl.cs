@@ -111,6 +111,7 @@ public class PlayerCtrl : MonoBehaviour
                 //rb.velocity = velocity;
                 transform.position = pos;
                 a.SetBool("Walk", true);
+                lastGroundPos = transform.position;
             }
 
             else
@@ -166,6 +167,15 @@ public class PlayerCtrl : MonoBehaviour
                 lastTouchGround = Time.time;
             }
         }
+    }
+
+    public void TeleportToPoint(Vector3 pos)
+    {
+        lastGroundPos = pos;
+        lastGroundPos.y += 2;
+        transform.position = lastGroundPos;
+        rb.velocity.Set(0, 0);
+        lastTouchGround = Time.time;
     }
 
     private void Jump(float forceX)

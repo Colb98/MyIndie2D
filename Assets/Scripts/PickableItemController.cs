@@ -38,6 +38,9 @@ public class PickableItemController : MonoBehaviour
             case "boost":
                 gm.SetBoostPosY();
                 break;
+            case "spike":
+                gm.GameOver();
+                break;
         }
     }
 }

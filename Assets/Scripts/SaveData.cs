@@ -19,4 +19,9 @@ public class SaveData
         y = v.y;
         z = v.z;
     }
+
+    public override string ToString()
+    {
+        return "{pos: (" + x + "," + y + "," + z + "); GotLightning: " + gotLightning + "; GotBoost: " + gotBoost + "; LightningPosY: " + lightningPosY + "; BoostPosY: " + boostPosY;
+    }
 }

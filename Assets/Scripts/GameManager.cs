@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private bool gotLightning;
     private float boostPosY;
     private bool gotBoost;
+    private Vector3 initPos;
     public int level = 1;
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
         paused = false;
         gotLightning = false; ;
         guiMgr = GetComponent<GUIManager>();
+        initPos = new Vector2(-1.46f, -3.93f);
     }
 
     // Update is called once per frame
@@ -52,6 +54,11 @@ public class GameManager : MonoBehaviour
                 eb.SetBarVisible(false);
             }
         }
+        else
+        {
+            eb.SetBarVisible(false);
+        }
+
         if (gotBoost)
         {
             if (player.transform.position.y >= boostPosY - 3)
@@ -62,6 +69,10 @@ public class GameManager : MonoBehaviour
             {
                 pc.SetSpeed(0.05f);
             }
+        }
+        else
+        {
+            pc.SetSpeed(0.05f);
         }
     }
 
@@ -86,6 +97,9 @@ public class GameManager : MonoBehaviour
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/save_data.bin");
         bf.Serialize(file, save);
+
+        Debug.Log("Game saved: " + save.ToString());
+
         file.Close();
     }
 
@@ -111,6 +125,7 @@ public class GameManager : MonoBehaviour
             this.boostPosY = save.boostPosY;
 
             Debug.Log("LOAD SUCCESS level " + save.level);
+            Debug.Log("Game loaded: " + save.ToString());
         }
         else
         {
@@ -142,6 +157,19 @@ public class GameManager : MonoBehaviour
     {
         boostPosY = player.transform.position.y;
         gotBoost = true;
+    }
+
+    public void GameOver()
+    {
+        guiMgr.ShowNotify("GAME OVER", "You died :( \n Try again?", "OKAY");
+        ResetLevel();
+    }
+
+    public void ResetLevel()
+    {
+        pc.TeleportToPoint(initPos);
+        gotBoost = false;
+        gotLightning = false;
     }
 
     public void LevelUp()
